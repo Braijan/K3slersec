@@ -23,7 +23,7 @@ export function MainNav({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'flex flex-col items-start justify-start md:flex-row md:items-center md:justify-between pt-10 z-50',
+        'flex flex-row items-start justify-start  md:flex-row md:items-center md:justify-between pt-10 z-50',
         className
       )}
     >
