@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 
 export function GET(request: Request) {
   let url = new URL(request.url);
-  let title = url.searchParams.get('title') || 'Next.js and MDX Blog';
+  let title = url.searchParams.get('title') || 'K3strel Sec';
 
   try {
     return new ImageResponse(
@@ -14,35 +14,45 @@ export function GET(request: Request) {
             width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
-            letterSpacing: '-.02em',
             fontWeight: 700,
-            background: 'white',
+            background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
+            color: 'white',
+            position: 'relative',
           }}
         >
           <div
             style={{
-              left: 42,
-              top: 42,
               position: 'absolute',
+              top: 30,
+              left: 30,
               display: 'flex',
               alignItems: 'center',
+              background: 'rgba(0, 0, 0, 0.6)',
+              padding: '10px 20px',
+              borderRadius: '8px',
             }}
           >
             <span
               style={{
-                width: 24,
-                height: 24,
-                background: 'black',
+                width: 40,
+                height: 40,
+                background: '#4caf50',
                 color: 'white',
-                padding: '2px 25px 2px 2px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                fontSize: 24,
+                fontWeight: 700,
               }}
             >
               KS
             </span>
             <span
               style={{
-                marginLeft: 8,
-                fontSize: 20,
+                marginLeft: 15,
+                fontSize: 24,
+                fontWeight: 500,
               }}
             >
               k3strelsec.com
@@ -56,12 +66,11 @@ export function GET(request: Request) {
               padding: '20px 50px',
               margin: '0 42px',
               fontSize: 40,
-              width: 'auto',
               maxWidth: 550,
               textAlign: 'center',
-              backgroundColor: 'black',
-              color: 'white',
-              lineHeight: 1.4,
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              borderRadius: '10px',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
             }}
           >
             {title}
