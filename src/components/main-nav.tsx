@@ -17,6 +17,7 @@ import {
 import { Icons } from './icons';
 import { ModeToggle } from './ui/mode-toggle';
 import { POSTS } from '@/lib/constants';
+import Image from 'next/image';
 
 export function MainNav({ className }: { className?: string }) {
   return (
@@ -28,7 +29,14 @@ export function MainNav({ className }: { className?: string }) {
     >
       <Link href={'/'} passHref>
         <div className="flex items-center justify-between w-32">
-          <Icons.logo className="h-6 w-6" />
+          {/* <Icons.logo className="h-6 w-6" /> */}
+          <Image
+            src="/kestrellogo.png"
+            alt="An Introduction to Penetration Testing"
+            width={20}
+            height={20}
+            className="w-auto h-auto mb-1 p-0.5 bg-slate-950 rounded-full"
+          />
           <p>K3strel Sec</p>
         </div>
       </Link>

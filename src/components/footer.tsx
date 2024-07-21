@@ -7,6 +7,7 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { createSubscriber } from '@/lib/actions';
 import { useFormState } from 'react-dom';
+import Image from 'next/image';
 
 export default function Footer() {
   const initialState = { message: '', errors: {} };
@@ -17,7 +18,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <Icons.logo className="h-6 w-6" />
+              {/* <Icons.logo className="h-6 w-6" /> */}
+              <Image
+                src="/kestrellogo.png"
+                alt="An Introduction to Penetration Testing"
+                width={20}
+                height={20}
+                className="w-auto h-auto mb-1 p-0.5 bg-slate-950 rounded-full"
+              />
               <span className="text-md font-semibold">K3strel Sec</span>
             </div>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
