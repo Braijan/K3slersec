@@ -1,0 +1,135 @@
+---
+title: 'Tools and Resources: Common Code Injection Examples'
+publishedAt: '2024-07-20'
+summary: 'This article provides an overview of common code injection vulnerabilities, including SQL injection and cross-site scripting (XSS). It also highlights tools and resources to help identify and mitigate these security issues.'
+category: 'tools-and-resources'
+---
+
+## Introduction
+
+Code injection vulnerabilities are a significant threat to web applications and can lead to severe security breaches. This article explores common code injection examples, such as SQL injection and cross-site scripting (XSS), and provides tools and resources to help identify and mitigate these vulnerabilities.
+
+## SQL Injection
+
+SQL injection occurs when an attacker inserts malicious SQL code into a query, allowing them to manipulate the database. Here's a basic example of a vulnerable SQL query:
+
+```javascript
+// Vulnerable SQL query
+const userId = req.query.id;
+const query = `SELECT * FROM users WHERE id = '${userId}'`;
+// This query is vulnerable to SQL injection
+```
+
+## Example of an Attack
+
+An attacker can exploit this vulnerability by entering the following input:
+
+```bash
+' OR '1'='1
+```
+
+The resulting query would be:
+
+```sql
+SELECT * FROM users WHERE id = '' OR '1'='1'
+```
+
+This query returns all rows in the users table, allowing the attacker to access sensitive information.
+
+## Mitigation
+
+To prevent SQL injection, use parameterized queries or prepared statements:
+
+```javascript
+// Secure SQL query using parameterized queries
+const userId = req.query.id;
+const query = 'SELECT * FROM users WHERE id = ?';
+db.execute(query, [userId], (err, results) => {
+  if (err) throw err;
+  // Process results
+});
+```
+
+## Cross-Site Scripting (XSS)
+
+XSS occurs when an attacker injects malicious scripts into a web application, which are then executed in the user's browser. Here's an example of a vulnerable HTML output:
+
+```html
+<!-- Vulnerable HTML output -->
+<div>User profile: <%= userInput %></div>
+<!-- This code is vulnerable to XSS -->
+```
+
+## Example of an Attack
+
+An attacker can inject the following script:
+
+```html
+<script>
+  alert('XSS');
+</script>
+```
+
+The resulting output would be:
+
+```html
+<div>
+  User profile:
+  <script>
+    alert('XSS');
+  </script>
+</div>
+```
+
+This script executes in the user's browser, potentially stealing cookies or other sensitive information.
+
+## Mitigation
+
+To prevent XSS, always sanitize and encode user input:
+
+```javascript
+// Secure HTML output using a library like DOMPurify
+import DOMPurify from 'dompurify';
+
+const sanitizedInput = DOMPurify.sanitize(userInput);
+const output = `<div>User profile: ${sanitizedInput}</div>`;
+```
+
+## Tools and Resources
+
+### 1. Burp Suite
+
+Burp Suite is a comprehensive tool for web application security testing. It can help identify and exploit various vulnerabilities, including SQL injection and XSS.
+
+- [Burp Suite](https://portswigger.net/burp)
+
+### 2. OWASP ZAP (Zed Attack Proxy)
+
+OWASP ZAP is an open-source web application security scanner. It can be used to find security vulnerabilities in web applications during the development and testing phases.
+
+- [OWASP ZAP](https://owasp.org/www-project-zap/)
+
+### 3. SQLMap
+
+SQLMap is an open-source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws and taking over database servers.
+
+- [SQLMap](https://sqlmap.org/)
+
+### 4. DOMPurify
+
+DOMPurify is a JavaScript library that sanitizes HTML and prevents XSS attacks.
+
+- [DOMPurify](https://github.com/cure53/DOMPurify)
+
+## Conclusion
+
+Understanding common code injection vulnerabilities like SQL injection and XSS is crucial for web application security. By using the right tools and following best practices, developers can identify and mitigate these threats effectively, ensuring a more secure application environment.
+
+## References
+
+- [Burp Suite](https://portswigger.net/burp)
+- [OWASP ZAP](https://owasp.org/www-project-zap/)
+- [SQLMap](https://sqlmap.org/)
+- [DOMPurify](https://github.com/cure53/DOMPurify)
+
+I hope this guide provides valuable insights into common code injection vulnerabilities and the tools available to help you secure your applications. Feel free to reach out with any questions or comments!
