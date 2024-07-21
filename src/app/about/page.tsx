@@ -4,8 +4,8 @@ import { MainNav } from '@/components/main-nav';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About Me',
-  description: 'Information about me',
+  title: 'About',
+  description: 'Information k3strel sec',
 };
 
 export default async function AboutPage() {

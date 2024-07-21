@@ -1,7 +1,7 @@
 import { POSTS } from '@/lib/constants';
 import { getBlogPosts } from './blog/utils';
 
-export const baseUrl = 'https://k3strelsec.com';
+export const baseUrl = 'https://www.k3strelsec.com';
 
 export default async function sitemap() {
   let blogs = getBlogPosts().map((post) => ({

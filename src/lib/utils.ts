@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export const fetchUrl =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000/api'
-    : 'https://k3strelsec.com/api';
+    : 'https://www.k3strelsec.com/api';
 
 type ResponseData = {
   category: string;
