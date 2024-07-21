@@ -38,7 +38,7 @@ export function getPrivacyPolicy() {
   return getMDXData(path.join(process.cwd(), 'src', 'app', 'privacy-policy'));
 }
 
-export function formatDate(date: string, includeRelative = false) {
+export function formatDate(date: string, includeRelative = true) {
   let currentDate = new Date();
   if (!date.includes('T')) {
     date = `${date}T00:00:00`;
