@@ -1,0 +1,154 @@
+---
+title: 'Understanding SQL Injection Attacks and How to Prevent Them'
+publishedAt: '2024-07-22'
+summary: 'This article provides an in-depth look at SQL injection attacks, including examples and code snippets. It emphasizes the importance of ethical hacking and outlines best practices for preventing SQL injections.'
+category: 'tools-and-resources'
+image: '/images/sql-injections.png'
+---
+
+import { Image } from 'next/image';
+
+<Image
+  src="/images/sql-injections.png"
+  alt="An Introduction to Penetration Testing"
+  width={400}
+  height={400}
+  className="w-400 h-400 mb-4 rounded-xl"
+/>
+
+## Disclaimer
+
+All information in this article is provided strictly for informational purposes or for ethical hackers involved in professional penetration testing or bug bounties. This content is not intended for malicious use.
+
+## Introduction
+
+SQL injection (SQLi) is a common attack vector that allows attackers to execute arbitrary SQL code on a database. This can lead to unauthorized access, data exfiltration, and even complete system compromise. Understanding SQL injections and how to prevent them is crucial for maintaining robust database security.
+
+## What is SQL Injection?
+
+SQL injection occurs when an attacker inserts or "injects" malicious SQL code into a query, manipulating the execution of that query. This typically happens through web application input fields that are not properly sanitized.
+
+### Example of a Vulnerable SQL Query
+
+Here’s a basic example of a vulnerable SQL query:
+
+```javascript
+const userId = req.query.id;
+const query = `SELECT * FROM users WHERE id = '${userId}'`;
+// This query is vulnerable to SQL injection
+```
+
+If an attacker inputs 1' OR '1'='1, the resulting SQL query becomes:
+
+```sql
+SELECT * FROM users WHERE id = '1' OR '1'='1'
+```
+
+This query returns all rows in the users table, effectively bypassing authentication checks.
+
+## Types of SQL Injection
+
+### 1. In-band SQLi (Classic SQLi)
+
+This is the most common type of SQLi. It occurs when the attacker uses the same communication channel to launch the attack and gather the results. Example: Error-based SQLi and Union-based SQLi.
+
+### 2. Inferential SQLi (Blind SQLi)
+
+In this type, no data is transferred via the web application. Instead, the attacker reconstructs the database structure by sending payloads and observing the web application's response and behavior.
+
+### 3. Out-of-band SQLi
+
+This type occurs when the attacker can't use the same channel to launch the attack and gather results. It relies on the database server's capability to make DNS or HTTP requests to deliver data to the attacker.
+
+## Examples and Code Snippets
+
+### Error-based SQL Injection
+
+Error-based SQLi relies on database errors to gain insights into the structure of the database.
+
+```javascript
+const userId = req.query.id;
+const query = `SELECT * FROM users WHERE id = ${userId}`;
+// Malicious input: 1 OR 1=1
+```
+
+### Union-based SQL Injection
+
+Union-based SQLi uses the UNION SQL operator to combine the results of two or more SELECT statements.
+
+```javascript
+const userId = req.query.id;
+const query = `SELECT username, password FROM users WHERE id = ${userId} UNION SELECT credit_card_number, NULL FROM credit_cards`;
+// Malicious input: 1 UNION SELECT credit_card_number, NULL FROM credit_cards
+```
+
+### Blind SQL Injection
+
+Blind SQLi does not reveal data directly but allows an attacker to infer the database structure by observing application behavior.
+
+```javascript
+const userId = req.query.id;
+const query = `SELECT * FROM users WHERE id = ${userId} AND 1=IF(1=1, sleep(5), 0)`;
+// Malicious input: 1 AND 1=IF(1=1, sleep(5), 0)
+```
+
+## Mitigation Strategies
+
+### 1. Parameterized Queries
+
+Parameterized queries, also known as prepared statements, ensure that user input is treated as data and not executable code.
+
+```javascript
+const userId = req.query.id;
+const query = 'SELECT * FROM users WHERE id = ?';
+db.execute(query, [userId], (err, results) => {
+  if (err) throw err;
+  // Process results
+});
+```
+
+### 2. Stored Procedures
+
+Stored procedures can encapsulate SQL statements, reducing the risk of SQL injection.
+
+```sql
+CREATE PROCEDURE SelectUser(IN userId INT)
+BEGIN
+  SELECT * FROM users WHERE id = userId;
+END;
+```
+
+### 3. Input Validation and Sanitization
+
+Ensure all user input is validated and sanitized to prevent malicious code from being executed.
+
+```javascript
+const userId = req.query.id;
+if (!isNaN(userId)) {
+  const query = `SELECT * FROM users WHERE id = ${userId}`;
+  db.query(query, (err, results) => {
+    if (err) throw err;
+    // Process results
+  });
+} else {
+  // Handle invalid input
+}
+```
+
+### 4. Use ORM (Object-Relational Mapping) Libraries
+
+ORM libraries abstract SQL queries into methods, making it harder to introduce SQL injection vulnerabilities.
+
+```javascript
+const user = await User.findOne({ where: { id: req.query.id } });
+```
+
+## Conclusion
+
+SQL injection is a serious threat that can compromise the security of your database and application. By understanding the different types of SQL injections and implementing robust prevention techniques, you can protect your systems from these attacks. Always practice ethical hacking and use your skills for legal and constructive purposes.
+
+### References
+
+- [W3Schools - SQL Injection](https://www.w3schools.com/sql/sql_injection.asp)
+- [PortSwigger - SQL Injection](https://portswigger.net/web-security/sql-injection)
+- [OWASP - SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
