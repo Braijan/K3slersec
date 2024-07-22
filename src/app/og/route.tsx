@@ -14,10 +14,10 @@ export function GET(request: Request) {
             width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
-            fontWeight: 700,
-            background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
+            background: 'linear-gradient(135deg, #1a2a3a, #1f3c52, #2b4c64)',
             color: 'white',
             position: 'relative',
+            fontFamily: 'Arial, sans-serif',
           }}
         >
           <div
@@ -27,22 +27,23 @@ export function GET(request: Request) {
               left: 30,
               display: 'flex',
               alignItems: 'center',
-              background: 'rgba(0, 0, 0, 0.6)',
-              padding: '10px 20px',
-              borderRadius: '8px',
+              background: 'rgba(0, 0, 0, 0.5)',
+              padding: '12px 24px',
+              borderRadius: '10px',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
             }}
           >
             <span
               style={{
-                width: 40,
-                height: 40,
+                width: 50,
+                height: 50,
                 background: '#4caf50',
                 color: 'white',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: '50%',
-                fontSize: 24,
+                fontSize: 28,
                 fontWeight: 700,
               }}
             >
@@ -50,7 +51,7 @@ export function GET(request: Request) {
             </span>
             <span
               style={{
-                marginLeft: 15,
+                marginLeft: 20,
                 fontSize: 24,
                 fontWeight: 500,
               }}
@@ -63,18 +64,29 @@ export function GET(request: Request) {
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'center',
-              padding: '20px 50px',
+              padding: '20px 60px',
               margin: '0 42px',
-              fontSize: 40,
-              maxWidth: 550,
+              fontSize: 48,
+              maxWidth: 700,
               textAlign: 'center',
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              borderRadius: '10px',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              borderRadius: '12px',
               boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
             }}
           >
             {title}
           </div>
+          <img
+            src={new URL('/images/k3strelsec-og.png', url.origin).toString()}
+            alt="K3strel Sec Logo"
+            style={{
+              position: 'absolute',
+              bottom: 30,
+              right: 30,
+              width: '120px',
+              height: 'auto',
+            }}
+          />
         </div>
       ),
       {
@@ -83,6 +95,7 @@ export function GET(request: Request) {
       }
     );
   } catch (error) {
+    console.error('Failed to create OG Image:', error);
     return new Response('Failed to create OG Image', { status: 500 });
   }
 }
